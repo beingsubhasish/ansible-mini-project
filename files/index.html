@@ -1,10 +1,83 @@
- <!DOCTYPE html>
-<html>
-  <head>
-    <title>Ansible Demo</title>
-  </head>
-  <body>
-    <h1>Deployed by Ansible 🚀</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ansible Tutorial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Ansible Tutorial</h1>
+    <p>Automate IT Infrastructure Like a Pro 🚀</p>
+</header>
+
+<nav>
+    <a href="#intro">Introduction</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#playbook">Playbook</a>
+    <a href="#commands">Commands</a>
+</nav>
+
+<section id="intro">
+    <h2>What is Ansible?</h2>
+    <p>
+        Ansible is an open-source automation tool used for configuration management,
+        application deployment, and orchestration.
+        It uses SSH and YAML-based playbooks, making it simple and powerful.
+    </p>
+</section>
+
+<section id="architecture">
+    <h2>Ansible Architecture</h2>
+    <ul>
+        <li><strong>Control Node:</strong> Machine where Ansible is installed</li>
+        <li><strong>Managed Nodes:</strong> Servers managed by Ansible</li>
+        <li><strong>Inventory:</strong> List of managed nodes</li>
+        <li><strong>Playbooks:</strong> YAML files defining tasks</li>
+    </ul>
+</section>
+
+<section id="inventory">
+    <h2>Inventory Example</h2>
+    <pre>
+[workers]
+worker1 ansible_host=10.0.0.1
+worker2 ansible_host=10.0.0.2
+
+[all:vars]
+ansible_user=ubuntu
+    </pre>
+</section>
+
+<section id="playbook">
+    <h2>Playbook Example</h2>
+    <pre>
+- name: Install nginx
+  hosts: workers
+  become: true
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+    </pre>
+</section>
+
+<section id="commands">
+    <h2>Common Ansible Commands</h2>
+    <ul>
+        <li><code>ansible all -m ping</code></li>
+        <li><code>ansible-playbook playbook.yml</code></li>
+        <li><code>ansible-inventory --list</code></li>
+    </ul>
+</section>
+
+<footer>
+    <p>© 2026 Ansible Tutorial | Deployed using Ansible</p>
     <p>Hostname: {{ ansible_hostname }}</p>
-  </body>
+</footer>
+
+</body>
 </html>

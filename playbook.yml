@@ -1,37 +1,23 @@
 ---
-- name: Configure worker nodes
+- name: Deploy Ansible Tutorial Website
   hosts: workers
   become: true
   gather_facts: true
 
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-
     - name: Install nginx
       apt:
         name: nginx
         state: present
+        update_cache: yes
 
-    - name: Start and enable nginx
-      service:
-        name: nginx
-        state: started
-        enabled: yes
-
-    - name: Deploy index.html
-      template:
-        src: files/index.html
-        dest: /var/www/html/index.html
+    - name: Copy website files
+      copy:
+        src: files/
+        dest: /var/www/html/
         mode: '0644'
 
-    - name: Check nginx status
-      command: systemctl is-active nginx
-      register: nginx_status
-      changed_when: false
-
-    - name: Show nginx status
-      debug:
-        msg: "Nginx status on {{ inventory_hostname }}: {{ nginx_status.stdout }}"
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
